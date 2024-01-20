@@ -2,6 +2,7 @@ import abc
 import pandas as pd
 import numpy as np
 
+# Code is adapted from https://github.com/kieranjwood/trading-momentum-transformer/tree/master
 
 class AbstractFeatures(abc.ABC):
     
@@ -161,7 +162,7 @@ class DefaultFeatureCreator:
                 features_.append(f)
             features_ = pd.concat(features_, axis=1)
             features_.set_index(self._prices_df.index)
-            features_ = features_.iloc[self._cut_nan_samples:-1]
+            features_ = features_.iloc[self._cut_nan_samples:-1] # used to cut nan samples after applying pd.Series.shift
             features[symbol] = features_
 
         return features
